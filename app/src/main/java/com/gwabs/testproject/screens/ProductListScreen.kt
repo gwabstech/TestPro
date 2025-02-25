@@ -42,7 +42,6 @@ fun ProductListScreen(
     var errorMessage by remember { mutableStateOf("") }
     var isLoadinng by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
-        isLoadinng = true
         viewModel.getProduct(onError = {
             isLoadinng = false
             errorMessage = it
