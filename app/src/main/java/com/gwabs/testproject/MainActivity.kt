@@ -16,39 +16,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import com.gwabs.testproject.repo.LoginRepo
+import com.gwabs.testproject.ui.HomeNavigator
 import com.gwabs.testproject.ui.theme.TestProjectTheme
 import com.gwabs.testproject.viewModel.LoginViewModel
+import com.gwabs.testproject.viewModel.ProductsViewModel
+import com.gwabs.testproject.viewModel.SignUpViewModel
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var signUpViewModel: SignUpViewModel
+    private lateinit var productViewModel: ProductsViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+
+        signUpViewModel = SignUpViewModel()
+        productViewModel = ProductsViewModel()
         val sharedPreferences = getSharedPreferences("APP", Context.MODE_PRIVATE)
         val factory = LoginViewModel.LoginViewModelFactory(sharedPreferences)
         loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val loginRepo = LoginRepo()
-        setContent {
-            TestProjectTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .clickable {
-                                loginViewModel.login("john@mail.com", "changeme", onError = {
 
-                                }, onSuccess = {
-                                    Log.i("TAG","this is the data it $it")
-                                })
-                            }
-                    )
-                }
-            }
+        setContent {
+
+                HomeNavigator(this,loginViewModel,signUpViewModel,productViewModel)
+
         }
     }
 }

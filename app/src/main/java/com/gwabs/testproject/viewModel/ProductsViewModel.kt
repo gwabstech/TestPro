@@ -8,7 +8,7 @@ import com.gwabs.testproject.repo.ProductRepo
 import kotlinx.coroutines.launch
 
 class ProductsViewModel():ViewModel() {
-    val productRepo = ProductRepo()
+   private val productRepo = ProductRepo()
     fun getProduct(
         onError:(String)-> Unit,
         onSuccess:(List<Product>,) -> Unit

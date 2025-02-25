@@ -21,8 +21,6 @@ object RetrofitClient {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
-           // .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-
 
     }
 

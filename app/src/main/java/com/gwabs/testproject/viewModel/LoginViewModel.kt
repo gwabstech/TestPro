@@ -25,7 +25,10 @@ class LoginViewModel(appPreference: SharedPreferences) : ViewModel() {
             loginRepo.Login(
                 email,
                 password,
-                onError = {onError(it)},
+                onError = {
+                    onError(it)
+
+                          },
                 onSuccess = {access_token, ref_token ->
                     onSuccess("Login Successfully ")
 
@@ -35,9 +38,6 @@ class LoginViewModel(appPreference: SharedPreferences) : ViewModel() {
         }
 
     }
-
-
-
 
     class LoginViewModelFactory(private val preference: SharedPreferences) :
         ViewModelProvider.Factory {

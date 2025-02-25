@@ -5,17 +5,21 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.gwabs.testproject.data.User
 import com.gwabs.testproject.repo.LoginRepo
 import com.gwabs.testproject.repo.SignUpRepo
 import kotlinx.coroutines.launch
 
 class SignUpViewModel() : ViewModel() {
     val signUpRepo = SignUpRepo()
+
     fun signUp(
         email:String,
         password:String,
+        name: String,
+        avatar:String,
         onError:(String)-> Unit,
-        onSuccess:(String,) -> Unit
+        onSuccess:(User,) -> Unit
     ){
 
 
@@ -23,7 +27,14 @@ class SignUpViewModel() : ViewModel() {
             signUpRepo.Signup(
                 email,
                 password,
-
+                name,
+                avatar,
+                onSuccess = {
+                    onSuccess(it)
+                },
+                onError = {
+                    onError(it)
+                }
             )
         }
 
